@@ -1,0 +1,2 @@
+//! Clears session cookie
+export {};

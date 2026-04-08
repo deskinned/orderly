@@ -1,0 +1,16 @@
+name = "orderly"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+
+[vars]
+GITHUB_CLIENT_ID = ""
+SITE_URL = "https://gitsk.in"
+SKINBANK_API_URL = "https://skinbank.gitsk.in/v1"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = ""
+preview_id = ""
+
+[env.production]
+routes = [{ pattern = "api.gitsk.in/*", zone_name = "gitsk.in" }]
