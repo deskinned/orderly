@@ -7,10 +7,12 @@ GITHUB_CLIENT_ID = ""
 SITE_URL = "https://gitsk.in"
 SKINBANK_API_URL = "https://skinbank.gitsk.in/v1"
 
-[[kv_namespaces]]
-binding = "RATE_LIMIT"
-id = ""
-preview_id = ""
+# KV namespace IDs must be set after creating the namespace:
+#   wrangler kv namespace create RATE_LIMIT
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT"
+# id = "your-kv-namespace-id"
+# preview_id = "your-preview-kv-namespace-id"
 
 [env.production]
 routes = [{ pattern = "api.gitsk.in/*", zone_name = "gitsk.in" }]
