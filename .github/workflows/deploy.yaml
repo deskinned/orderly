@@ -14,13 +14,19 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Inject KV binding
+      - name: Inject secrets into wrangler config
         run: |
+          sed -i 's|OAUTH_CLIENT_ID = ""|OAUTH_CLIENT_ID = "${{ secrets.OAUTH_CLIENT_ID }}"|' wrangler.toml
           cat >> wrangler.toml <<EOF
           [[env.production.kv_namespaces]]
           binding = "RATE_LIMIT"
           id = "${{ secrets.KV_RATE_LIMIT_ID }}"
           EOF
       - run: pnpm run deploy:prod
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+      - name: Set worker secrets
+        run: |
+          echo "${{ secrets.OAUTH_CLIENT_SECRET }}" | pnpm wrangler secret put OAUTH_CLIENT_SECRET --env production
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
